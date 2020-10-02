@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Products</title>
+    <!-- development version, includes helpful console warnings -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+<div id = "app">
+    <ul>
+        <li v-for="product in products">
+            <h4>{{product.name}}({{product.numberOfWordsWithCapitalLetter}},{{product.numberOfWordsWithSmallLetter}})</h4>
+        </li>
+    </ul>
+</div>
+
+<div>
+    <a href="index.html">back<<</a>
+</div>
+<script>
+    const apiURL = "http://localhost:8084/app/productsWithNumbers"
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                products : []
+            }
+        },
+
+        created(){
+            fetch(apiURL)
+                .then(response =>{
+                    return response.json();
+                })
+                .then(products =>{
+                    this.products = products;
+                })
+        }
+    });
+</script>
+</body>
+</html>
